@@ -6,12 +6,12 @@ Steps (paths are relative to the repository root):
   3. [--perception] perception agent on CrisisMMD (CLIP ViT-L/14, Grad-CAM; GPU recommended)
      -> data/processed/crisismmd_features.csv (a precomputed copy is included in the repository)
   4. evidence-reliability evaluation (Table 1)                              results/perception/
-  5. trace-driven replay: 30 paired runs, robustness, social weight, sensitivity (Table 2, Fig. 3)
-     -> results/replay/   (about 20 min on one CPU core; --quick: 5 runs into results/replay_quick/)
-  6. summaries, paired tests and figure data                                results/replay/, figures/data/
-  7. inspection-targeting diagnostics                                       results/replay/diagnostics.json
-  8. mutation analysis of the DT-oracle tests (Table 3)                     results/mutation/
-  9. compile the figures with pdflatex and export SVG/PNG (skipped if pdflatex is missing)   figures/
+  5. trace-driven replay with citizen posts and simulated Sentinel-1 radar: tuning on the calibration half
+     (Brier score), 30 paired runs, radar / misleading-post / social-weight / threshold sweeps (Table 2, Fig. 3)
+     -> results/replay/   (about 7 min with 27 worker processes; --quick: 5 runs into results/replay_quick/)
+  6. summaries, paired tests and figure data                                results/replay/numbers.json, figures/data/
+  7. mutation analysis of the DT-oracle tests (Table 3)                     results/mutation/
+  8. compile the figures with pdflatex and export SVG/PNG (skipped if pdflatex is missing)   figures/
 
 Usage:  python reproduce.py [--quick] [--perception] [--skip-replay]
 """
@@ -53,18 +53,17 @@ def main():
     run("4. evidence reliability (Table 1)", os.path.join(SRC, "reliability_eval.py"), FEATURES,
         os.path.join(ROOT, "results", "perception"))
     if not a.skip_replay:
-        run("5. replay (Table 2, Fig. 3)", os.path.join(SRC, "sim_dt.py"), SHP, FEATURES, replay,
+        run("5. replay with posts and radar (Table 2, Fig. 3)", os.path.join(SRC, "sim_dt.py"), SHP, FEATURES, replay,
             *(["--quick"] if a.quick else []))
     if not a.quick:
         run("6. summaries and figure data", os.path.join(SRC, "summarize.py"), replay, os.path.join(ROOT, "figures", "data"))
         run("6b. Fig. 2 data", os.path.join(SRC, "make_fig2_data.py"), "--shp", SHP, "--replay", replay)
-        run("7. diagnostics", os.path.join(SRC, "diagnostics.py"), SHP, FEATURES, replay)
-    run("8. mutation analysis (Table 3)", os.path.join(SRC, "mutation_study.py"), SHP, FEATURES,
+    run("7. mutation analysis (Table 3)", os.path.join(SRC, "mutation_study.py"), SHP, FEATURES,
         os.path.join(ROOT, "results", "mutation"))
     if shutil.which("pdflatex") and not a.quick:
-        run("9. figures", os.path.join(SRC, "export_figures.py"))
+        run("8. figures", os.path.join(SRC, "export_figures.py"))
     elif not a.quick:
-        print("\n=== 9. figures skipped: pdflatex not found (compiled figures are included in figures/)")
+        print("\n=== 8. figures skipped: pdflatex not found (compiled figures are included in figures/)")
     print("\nAll steps finished.")
 
 

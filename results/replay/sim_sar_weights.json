@@ -1,0 +1,62 @@
+{
+ "sar_auc=0.7": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.5,
+  "eta_sar": 0.15
+ },
+ "sar_auc=0.75": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.5,
+  "eta_sar": 0.25
+ },
+ "sar_auc=0.81": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.75,
+  "eta_sar": 0.5
+ },
+ "sar_auc=0.9": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.75,
+  "eta_sar": 0.35
+ },
+ "sar_auc=0.95": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.75,
+  "eta_sar": 0.5
+ },
+ "sar_rho=0.0": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 1.0,
+  "eta_sar": 0.5
+ },
+ "sar_rho=0.25": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.5,
+  "eta_sar": 0.5
+ },
+ "sar_rho=0.5": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.75,
+  "eta_sar": 0.5
+ },
+ "sar_rho=0.75": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.25,
+  "eta_sar": 0.25
+ },
+ "sar_period=6": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.25,
+  "eta_sar": 0.25
+ },
+ "sar_period=12": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.75,
+  "eta_sar": 0.5
+ },
+ "sar_period=24": {
+  "kappa_sar": 0.05,
+  "eta_b4_sar": 0.75,
+  "eta_sar": 0.5
+ }
+}

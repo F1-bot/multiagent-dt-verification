@@ -1,7 +1,8 @@
-"""Data files for Fig. 2: UNOSAT transition matrix (heatmap cells) and the trace of one illustrative object.
+"""Data files for Fig. 2: UNOSAT transition matrix (heatmap cells) and the trace of one illustrative object
+(belief, citizen posts, Sentinel-1 acquisitions, inspections) in the multi-source replay.
 
-Usage: python src/make_fig2_data.py [--shp <UNOSAT damage .shp>] [--replay results/replay]
-       [--calibration results/calibration] [--out figures/data] [--object 575]
+Usage: python src/make_fig2_data.py [--shp <UNOSAT damage .shp>] [--replay <replay dir>]
+       [--calibration <dir with unosat_Q.json>] [--out <figure data dir>] [--object 539]
 """
 import argparse
 import json
@@ -14,18 +15,22 @@ import pandas as pd
 from scipy.linalg import expm
 import sim_dt
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BS = chr(92)
-DEFAULT_SHP = os.path.join(ROOT, "data", "raw", "unosat", "extracted", "UNOSAT_Mariupol_Livoberezhyny_DA_12May2022.shp")
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+DEF = {
+    "shp": os.path.join(ROOT, "data", "raw", "unosat", "extracted", "UNOSAT_Mariupol_Livoberezhyny_DA_12May2022.shp"),
+    "replay": os.path.join(ROOT, "results", "replay"),
+    "calibration": os.path.join(ROOT, "results", "calibration"),
+    "out": os.path.join(ROOT, "figures", "data"),
+}
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--shp", default=DEFAULT_SHP)
-    ap.add_argument("--replay", default=os.path.join(ROOT, "results", "replay"))
-    ap.add_argument("--calibration", default=os.path.join(ROOT, "results", "calibration"))
-    ap.add_argument("--out", default=os.path.join(ROOT, "figures", "data"))
-    ap.add_argument("--object", type=int, default=575, help="index of the traced object (seed 1000 of the replay)")
+    for k, v in DEF.items():
+        ap.add_argument("--" + k, default=v)
+    ap.add_argument("--object", type=int, default=539, help="index of the traced object (seed 1000 of the replay)")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
 
@@ -57,7 +62,7 @@ def main():
         L.append(BS + "node[anchor=south, font=%sfootnotesize, text=ink, inner sep=1.5pt] at (%.3f,0) {%d};" % (BS, (i + 0.5) * cs, i))
     open(os.path.join(a.out, "fig2a_cells.tex"), "w", encoding="utf-8").write("\n".join(L) + "\n")
 
-    # ---- (b-d) trace of one object: expected state +- 2 sd, posts, inspections
+    # ---- (b-e) trace of one object: expected state +- 2 sd, posts, Sentinel-1 acquisitions, inspections
     tr = json.load(open(os.path.join(a.replay, "sim_trace.json")))
     b = str(a.object)
     df = sim_dt.load_population(a.shp)
@@ -70,14 +75,22 @@ def main():
         m = bel @ k
         sd = np.sqrt(np.maximum(bel @ (k ** 2) - m ** 2, 0))
         out["m" + tag], out["lo" + tag], out["hi" + tag] = m, np.clip(m - 2 * sd, 0, 3), np.clip(m + 2 * sd, 0, 3)
+        out["r" + tag] = bel[:, 2:].sum(1)
     out["truth"] = np.array(tr["P-full"]["truth"][b])
     pd.DataFrame(out).round(4).to_csv(os.path.join(a.out, "fig2_trace.csv"), sep=" ", index=False)
-    posts = [(e[0], e[2], e[4]) for e in tr["P-full"]["events"][b] if e[1] in ("post", "quarantine")]
+    ev_p = tr["P-full"]["events"][b]
+    posts = [(e[0], e[2], e[4]) for e in ev_p if e[1] in ("post", "quarantine")]
     pd.DataFrame(posts, columns=["day", "cls", "w"]).to_csv(os.path.join(a.out, "fig2_posts.csv"), sep=" ", index=False)
-    ins = [(e[0], 1) for e in tr["P-full"]["events"][b] if e[1] == "inspection"] + \
+    sar = [(e[0], e[2]) for e in ev_p if e[1] == "sar"]
+    pd.DataFrame(sar, columns=["day", "score"]).to_csv(os.path.join(a.out, "fig2_sar.csv"), sep=" ", index=False)
+    ins = [(e[0], 1) for e in ev_p if e[1] == "inspection"] + \
           [(e[0], 0) for e in tr["B3-linearPool"]["events"][b] if e[1] == "inspection"]
     pd.DataFrame(ins, columns=["day", "row"]).to_csv(os.path.join(a.out, "fig2_insp.csv"), sep=" ", index=False)
-    print("figure 2 data written to", a.out)
+    print("object", b, "| truth changes:", [(t, x) for t, x in enumerate(out["truth"]) if t == 0 or x != out["truth"][t - 1]])
+    print("posts:", posts)
+    print("sar:", [(d, round(s, 2)) for d, s in sar])
+    print("inspections:", ins)
+    print("risk P/B3 at days 0,26,28,30,36,48,58,59:", [(t, round(out["rP"][t], 2), round(out["rB"][t], 2)) for t in (0, 26, 28, 30, 36, 48, 58, 59)])
 
 
 if __name__ == "__main__":

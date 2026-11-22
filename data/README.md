@@ -8,6 +8,8 @@ Raw third-party data are **not** stored in this repository. `python src/download
 | UNOSAT building damage assessment, Mariupol (Livoberezhnyi and Zhovtnevyi districts), imagery of 14 March and 7–12 May 2022 | Real initial and final damage states; CTMC calibration | Humanitarian Data Exchange, [dataset 89731ba0-…](https://data.humdata.org/dataset/89731ba0-f655-4b26-8d52-7167dbe84e08), UNITAR-UNOSAT | See the dataset page; preliminary analysis, not yet field-validated |
 | CrisisMMD v2.0, damage-severity task (2,468 / 529 / 529 tweets with images) | Real image–text citizen posts | [Hugging Face: QCRI/CrisisMMD](https://huggingface.co/datasets/QCRI/CrisisMMD); Alam, Ofli & Imran (2018), ICWSM, doi:10.1609/icwsm.v12i1.14983 | CC BY-NC-SA 4.0 |
 
+**Satellite radar.** No Sentinel-1 data are downloaded. The replay (`src/sim_dt.py`) simulates a change score for every object every 12 days (the Sentinel-1A revisit in 2022). It is calibrated to the building-level AUC of 0.81 reported for severely damaged and destroyed buildings in Ukraine (Dietrich et al., 2025, *Communications Earth & Environment* 6, 215, doi:10.1038/s43247-025-02183-7), with half of the noise variance persistent per object.
+
 ## `processed/crisismmd_features.csv`
 
 The file contains the outputs of the perception agent (`src/perception_features.py`) for the 3,526 CrisisMMD items. Tweet texts and image paths are removed. The `tweet_id` and `image_id` columns allow re-joining with the original dataset.
