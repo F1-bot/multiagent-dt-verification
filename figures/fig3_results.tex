@@ -1,0 +1,79 @@
+\documentclass[border=1pt]{standalone}
+\input{refstyle}
+\pgfplotsset{
+  pB0/.style={inkS, line width=0.9pt, dash pattern=on 1pt off 1.5pt},
+  pB1/.style={inkL, line width=0.9pt, dash pattern=on 3pt off 1.8pt},
+  pB2/.style={obsL, line width=1.0pt},
+  pB3/.style={cRed, line width=1.0pt},
+  pB4/.style={inkM, line width=1.0pt},
+  pP/.style={dtL, line width=1.4pt},
+  sal/.style={dash pattern=on 3.2pt off 1.6pt},
+}
+\tikzset{lab/.style={font=\footnotesize, inner sep=1pt}}
+% band between y-ci and y+ci of a table column
+\newcommand{\band}[4]{% #1 file, #2 x col, #3 y col, #4 colour
+  \addplot[name path=up, draw=none, forget plot] table[x=#2, y expr=\thisrow{#3}+\thisrow{#3ci}] {#1};
+  \addplot[name path=dn, draw=none, forget plot] table[x=#2, y expr=\thisrow{#3}-\thisrow{#3ci}] {#1};
+  \addplot[#4, forget plot] fill between[of=up and dn];}
+\begin{document}
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 2, horizontal sep=2.05cm, vertical sep=1.85cm},
+  kstyle, width=6.25cm, height=2.45cm]
+% ---------------- (a)
+\nextgroupplot[title={\plabel{a}Accuracy on changed objects}, xlabel={day},
+  xmin=0, xmax=59, ymin=0, ymax=1.0, xtick={0,10,20,30,40,50,59}, ytick={0,0.25,0.5,0.75,1}]
+  \addplot[pB1] table[x=day, y=ch_B1] {data/fig3_timeseries.csv};
+  \addplot[pB0] table[x=day, y=ch_B0] {data/fig3_timeseries.csv};
+  \addplot[pB3] table[x=day, y=ch_B3] {data/fig3_timeseries.csv};
+  \addplot[pP]  table[x=day, y=ch_P]  {data/fig3_timeseries.csv};
+  \draw[inkS, line width=0.4pt] (axis cs:59.3,0.372) -- (axis cs:60.6,0.45);
+  \node[lab, anchor=west, text=dtL] at (axis cs:60.6,0.45) {proposed};
+  \draw[inkS, line width=0.4pt] (axis cs:59.3,0.362) -- (axis cs:60.6,0.29);
+  \node[lab, anchor=west, text=cRed] at (axis cs:60.6,0.29) {B3};
+  \node[lab, anchor=west, text=inkS] at (axis cs:60.0,0.15) {B0};
+  \node[lab, anchor=west, text=inkS] at (axis cs:60.0,0.01) {B1};
+% ---------------- (b)
+\nextgroupplot[title={\plabel{b}Critical transitions detected [\%]}, xlabel={delay $d$ (days)},
+  xmin=0, xmax=40, ymin=0, ymax=90, xtick={0,7,14,21,28,35}, ytick={0,20,40,60,80}]
+  \draw[gridc, line width=0.5pt] (axis cs:7,0) -- (axis cs:7,90);
+  \addplot[pB0] table[x=d, y expr=100*\thisrow{B0}] {data/fig3_cdf.csv};
+  \addplot[pB3] table[x=d, y expr=100*\thisrow{B3}] {data/fig3_cdf.csv};
+  \addplot[pP]  table[x=d, y expr=100*\thisrow{P}]  {data/fig3_cdf.csv};
+  \addplot[pB3, sal] table[x=d, y expr=100*\thisrow{B3hi}] {data/fig3_cdf.csv};
+  \addplot[pP, sal]  table[x=d, y expr=100*\thisrow{Phi}]  {data/fig3_cdf.csv};
+  \node[lab, anchor=west, text=inkS, align=left] at (axis cs:40.6,84) {salient};
+  \node[lab, anchor=west, text=inkS] at (axis cs:40.6,44.5) {all};
+  \node[lab, anchor=west, text=inkS] at (axis cs:40.6,12.3) {B0};
+% ---------------- (c)
+\nextgroupplot[title={\plabel{c}Accuracy on changed objects}, xlabel={share of misleading posts $\mu$},
+  xmin=0, xmax=0.4, ymin=0.574, ymax=0.611, xtick={0,0.1,0.2,0.3,0.4}, ytick={0.58,0.59,0.60,0.61},
+  yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+  xticklabel style={/pgf/number format/.cd, fixed, precision=1}]
+  \band{data/fig3b_robust.csv}{mu}{B4}{inkL!30}
+  \band{data/fig3b_robust.csv}{mu}{B2}{obsL!22}
+  \band{data/fig3b_robust.csv}{mu}{B3}{cRed!16}
+  \band{data/fig3b_robust.csv}{mu}{P}{dtB}
+  \addplot[pB4] table[x=mu, y=B4] {data/fig3b_robust.csv};
+  \addplot[pB2] table[x=mu, y=B2] {data/fig3b_robust.csv};
+  \addplot[pB3] table[x=mu, y=B3] {data/fig3b_robust.csv};
+  \addplot[pP]  table[x=mu, y=P]  {data/fig3b_robust.csv};
+  \node[lab, anchor=west, text=dtL]  at (axis cs:0.404,0.5940) {proposed};
+  \node[lab, anchor=west, text=cRed] at (axis cs:0.404,0.5884) {B3};
+  \node[lab, anchor=west, text=obsL!85!black] at (axis cs:0.404,0.5824) {B2};
+  \node[lab, anchor=west, text=inkM] at (axis cs:0.404,0.5772) {B4};
+% ---------------- (d)
+\nextgroupplot[title={\plabel{d}Detected within 7 days [\%]}, xlabel={social weight $\gamma$},
+  xmin=0, xmax=4, ymin=10, ymax=65, xtick={0,0.5,1,2,4}, ytick={10,20,30,40,50,60}]
+  \addplot[name path=up, draw=none, forget plot] table[x=gamma, y expr=100*(\thisrow{det7_hi}+\thisrow{det7_hi_ci})] {data/fig3c_gamma.csv};
+  \addplot[name path=dn, draw=none, forget plot] table[x=gamma, y expr=100*(\thisrow{det7_hi}-\thisrow{det7_hi_ci})] {data/fig3c_gamma.csv};
+  \addplot[dtB, forget plot] fill between[of=up and dn];
+  \addplot[name path=up2, draw=none, forget plot] table[x=gamma, y expr=100*(\thisrow{det7}+\thisrow{det7_ci})] {data/fig3c_gamma.csv};
+  \addplot[name path=dn2, draw=none, forget plot] table[x=gamma, y expr=100*(\thisrow{det7}-\thisrow{det7_ci})] {data/fig3c_gamma.csv};
+  \addplot[dtB, forget plot] fill between[of=up2 and dn2];
+  \addplot[pP, sal, mark=*, mark size=1.5pt, mark options={solid, fill=dtL, draw=white, line width=0.3pt}] table[x=gamma, y expr=100*\thisrow{det7_hi}] {data/fig3c_gamma.csv};
+  \addplot[pP, mark=*, mark size=1.5pt, mark options={fill=dtL, draw=white, line width=0.3pt}] table[x=gamma, y expr=100*\thisrow{det7}] {data/fig3c_gamma.csv};
+  \node[lab, anchor=west, text=inkS] at (axis cs:4.08,57.1) {salient};
+  \node[lab, anchor=west, text=inkS] at (axis cs:4.08,19.2) {all};
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

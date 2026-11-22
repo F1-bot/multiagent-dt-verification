@@ -1,0 +1,38 @@
+{
+  "beta": 0.1,
+  "T_img": 0.9237121958208766,
+  "T_txt": 0.913416976365514,
+  "T_fus": 0.977913648843695,
+  "labels": [
+    "little_or_no_damage",
+    "mild_damage",
+    "severe_damage"
+  ],
+  "sentiment_labels": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "test_performance": {
+    "image": {
+      "acc": 0.6975425330812854,
+      "macroF1": 0.5823143218946817,
+      "weightedF1": 0.676487378645993
+    },
+    "text": {
+      "acc": 0.6521739130434783,
+      "macroF1": 0.394380453983103,
+      "weightedF1": 0.5615592109539204
+    },
+    "fused": {
+      "acc": 0.6994328922495274,
+      "macroF1": 0.5764120229817612,
+      "weightedF1": 0.6752922212506542
+    }
+  },
+  "n": {
+    "train": 2468,
+    "dev": 529,
+    "test": 529
+  }
+}

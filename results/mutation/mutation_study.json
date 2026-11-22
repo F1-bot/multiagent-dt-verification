@@ -1,0 +1,222 @@
+{
+ "n_mutants": 100,
+ "time_s": 7.776363134384155,
+ "killed_EB": 0.83,
+ "killed_DP": 0.86,
+ "killed_DR": 0.75,
+ "killed_EB_DP": 0.88,
+ "killed_DP_DR": 0.88,
+ "killed_ALL": 0.88,
+ "by_fn": {
+  "bayes_surprise": {
+   "killed_EB": 0.875,
+   "killed_EB_DP": 0.875,
+   "killed_ALL": 0.875
+  },
+  "evidence_likelihood": {
+   "killed_EB": 1.0,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  },
+  "expected_accuracy_gain": {
+   "killed_EB": 1.0,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  },
+  "fidelity_index": {
+   "killed_EB": 0.889,
+   "killed_EB_DP": 0.889,
+   "killed_ALL": 0.889
+  },
+  "linear_pool": {
+   "killed_EB": 0.889,
+   "killed_EB_DP": 0.889,
+   "killed_ALL": 0.889
+  },
+  "monotone_violation": {
+   "killed_EB": 0.429,
+   "killed_EB_DP": 0.429,
+   "killed_ALL": 0.429
+  },
+  "priority": {
+   "killed_EB": 1.0,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  },
+  "project_monotone": {
+   "killed_EB": 0.4,
+   "killed_EB_DP": 0.5,
+   "killed_ALL": 0.5
+  },
+  "reliability_to_weight": {
+   "killed_EB": 0.909,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  },
+  "social_concern": {
+   "killed_EB": 1.0,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  },
+  "tempered_update": {
+   "killed_EB": 0.8,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  },
+  "verification_decision": {
+   "killed_EB": 0.818,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  }
+ },
+ "n_by_fn": {
+  "bayes_surprise": 8,
+  "evidence_likelihood": 2,
+  "expected_accuracy_gain": 11,
+  "fidelity_index": 9,
+  "linear_pool": 9,
+  "monotone_violation": 7,
+  "priority": 11,
+  "project_monotone": 10,
+  "reliability_to_weight": 11,
+  "social_concern": 6,
+  "tempered_update": 5,
+  "verification_decision": 11
+ },
+ "by_kind": {
+  "AOR": {
+   "killed_EB": 1.0,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  },
+  "BSW": {
+   "killed_EB": 1.0,
+   "killed_EB_DP": 1.0,
+   "killed_ALL": 1.0
+  },
+  "CRP": {
+   "killed_EB": 0.822,
+   "killed_EB_DP": 0.889,
+   "killed_ALL": 0.889
+  },
+  "FCR": {
+   "killed_EB": 0.867,
+   "killed_EB_DP": 0.867,
+   "killed_ALL": 0.867
+  },
+  "ROR": {
+   "killed_EB": 0.5,
+   "killed_EB_DP": 0.667,
+   "killed_ALL": 0.667
+  },
+  "UOI": {
+   "killed_EB": 0.667,
+   "killed_EB_DP": 0.667,
+   "killed_ALL": 0.667
+  }
+ },
+ "n_by_kind": {
+  "AOR": 24,
+  "BSW": 1,
+  "CRP": 45,
+  "FCR": 15,
+  "ROR": 12,
+  "UOI": 3
+ },
+ "survived_all": 12,
+ "n_equivalent": 11,
+ "score_non_equivalent": {
+  "killed_EB": 0.9325842696629213,
+  "killed_DP": 0.9662921348314607,
+  "killed_DR": 0.8426966292134831,
+  "killed_EB_DP": 0.9887640449438202,
+  "killed_ALL": 0.9887640449438202
+ },
+ "by_fn_non_equivalent": {
+  "bayes_surprise": {
+   "killed_EB": 7,
+   "killed_DP": 6,
+   "killed_EB_DP": 7,
+   "killed_ALL": 7
+  },
+  "evidence_likelihood": {
+   "killed_EB": 2,
+   "killed_DP": 2,
+   "killed_EB_DP": 2,
+   "killed_ALL": 2
+  },
+  "expected_accuracy_gain": {
+   "killed_EB": 11,
+   "killed_DP": 11,
+   "killed_EB_DP": 11,
+   "killed_ALL": 11
+  },
+  "fidelity_index": {
+   "killed_EB": 8,
+   "killed_DP": 8,
+   "killed_EB_DP": 8,
+   "killed_ALL": 8
+  },
+  "linear_pool": {
+   "killed_EB": 8,
+   "killed_DP": 8,
+   "killed_EB_DP": 8,
+   "killed_ALL": 8
+  },
+  "monotone_violation": {
+   "killed_EB": 3,
+   "killed_DP": 3,
+   "killed_EB_DP": 3,
+   "killed_ALL": 3
+  },
+  "priority": {
+   "killed_EB": 11,
+   "killed_DP": 10,
+   "killed_EB_DP": 11,
+   "killed_ALL": 11
+  },
+  "project_monotone": {
+   "killed_EB": 4,
+   "killed_DP": 5,
+   "killed_EB_DP": 5,
+   "killed_ALL": 5
+  },
+  "reliability_to_weight": {
+   "killed_EB": 10,
+   "killed_DP": 11,
+   "killed_EB_DP": 11,
+   "killed_ALL": 11
+  },
+  "social_concern": {
+   "killed_EB": 6,
+   "killed_DP": 6,
+   "killed_EB_DP": 6,
+   "killed_ALL": 6
+  },
+  "tempered_update": {
+   "killed_EB": 4,
+   "killed_DP": 5,
+   "killed_EB_DP": 5,
+   "killed_ALL": 5
+  },
+  "verification_decision": {
+   "killed_EB": 9,
+   "killed_DP": 11,
+   "killed_EB_DP": 11,
+   "killed_ALL": 11
+  }
+ },
+ "equivalent_manual": {
+  "32": "axis -1 vs 0 identical for the 1-D belief vectors used by the DT",
+  "47": "lb<=0 vs lb<=-1: lb=0 path is a no-op slice, same output",
+  "48": "lb<=0 vs lb<0: lb=0 path is a no-op slice, same output",
+  "51": "sum vs mean against EPS: differs only for total mass in (1e-12, 4e-12]",
+  "52": "<= vs < EPS: differs only at exact equality",
+  "55": "out[lb]=2.0 is renormalised to the same one-hot vector",
+  "57": "lb>0 vs lb>-1: lb=0 slices an empty prefix, sum=0",
+  "58": "lb>0 vs lb>=0: lb=0 slices an empty prefix, sum=0",
+  "60": "sum vs mean against tol=1e-6: threshold rescaled by lb, no behavioural difference at DT scales",
+  "61": "> vs >= tol: differs only at exact equality",
+  "76": "max(axis=-1) vs max(axis=1) identical after atleast_2d"
+ }
+}

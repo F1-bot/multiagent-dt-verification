@@ -1,0 +1,56 @@
+% Figure style adopted from the reference figures of
+%   Kapteyn, Pretorius & Willcox (2021), Nature Computational Science 1, 337-347 (Figs. 1, 3, 6), and
+%   Torzoni et al. (2024), Computer Methods in Applied Mechanics and Engineering 418, 116584 (Fig. 1).
+% Colours were sampled from the vector PDF of the reference; text uses the body font of the article (Times).
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}         % Times text and math; \sffamily = TeX Gyre Heros (Torzoni-style labels)
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric,shapes.misc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots,fillbetween}
+% ---- reference palette
+\definecolor{ink}{HTML}{231F20}
+\definecolor{inkS}{HTML}{464749}
+\definecolor{inkM}{HTML}{808285}
+\definecolor{inkL}{HTML}{A7A9AC}
+\definecolor{gridc}{HTML}{BCBEC0}
+\definecolor{physN}{HTML}{E6E7E8}   % physical state node
+\definecolor{obsN}{HTML}{FED09E}    % observation node
+\definecolor{ctlN}{HTML}{FBD9E8}    % control node
+\definecolor{dtN}{HTML}{D0E6F7}     % digital state node
+\definecolor{qoiN}{HTML}{FEEED5}    % quantity-of-interest node
+\definecolor{rewN}{HTML}{D4EDEA}    % reward node
+\definecolor{dtL}{HTML}{3953A4}     % digital-state estimate
+\definecolor{dtB}{HTML}{D5E7F2}     % digital-state uncertainty band
+\definecolor{obsL}{HTML}{F7941D}    % observational data
+\definecolor{ctlL}{HTML}{EE287C}    % control inputs (lines)
+\definecolor{ctlD}{HTML}{F49AC1}    % control inputs (dots)
+\definecolor{rewL}{HTML}{066839}    % reward
+\definecolor{cRed}{HTML}{BE1E2D}
+\definecolor{seqLo}{HTML}{EEF4FA}
+% ---- node styles of the dynamic decision network (Kapteyn et al., Fig. 3)
+\tikzset{
+  ddn/.style={draw=ink, line width=0.63pt, minimum size=0.52cm, inner sep=0pt, font=\small},
+  nPhys/.style={ddn, circle, fill=physN},
+  nObs/.style={ddn, circle, fill=obsN, line width=1.6pt},
+  nCtl/.style={ddn, rectangle, fill=ctlN, line width=1.6pt, minimum size=0.47cm},
+  nDig/.style={ddn, circle, fill=dtN},
+  nQoi/.style={ddn, circle, fill=qoiN},
+  nRew/.style={ddn, diamond, fill=rewN, minimum size=0.6cm},
+  edge/.style={->, >={Stealth[length=3.2pt,width=2.6pt]}, draw=ink, line width=0.55pt},
+}
+% ---- plot style (Kapteyn et al., Fig. 6): quantity in the panel title, light horizontal grid, left/bottom axes only
+\pgfplotsset{
+  kstyle/.style={
+    font=\footnotesize, scale only axis,
+    axis x line*=bottom, axis y line*=left,
+    axis line style={ink, line width=0.6pt}, tick style={ink, line width=0.5pt},
+    tick align=outside, major tick length=2.2pt,
+    ymajorgrids, major grid style={gridc, line width=0.3pt},
+    tick label style={font=\footnotesize, text=ink}, label style={font=\footnotesize, text=ink},
+    title style={font=\footnotesize, text=ink, at={(0,1)}, anchor=south west, xshift=-1pt, yshift=1pt},
+    every axis plot/.append style={line width=1.0pt}, clip=false,
+  },
+}
+\newcommand{\plabel}[1]{\textit{#1)}\ }

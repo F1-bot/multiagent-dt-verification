@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this code or the results, please cite it as below."
+title: "Multi-Agent Verification of Damaged Infrastructure Digital Twins Using Multimodal Evidence"
+type: software
+version: 1.0.0
+date-released: 2026-11-22
+license: MIT
+authors:
+  - family-names: Dolhopolov
+    given-names: Serhii
+    orcid: "https://orcid.org/0000-0001-9418-0943"
+    affiliation: "Kyiv National University of Construction and Architecture"
+  - family-names: Hots
+    given-names: Vladyslav
+    orcid: "https://orcid.org/0000-0003-4384-4011"
+    affiliation: "Kyiv National University of Construction and Architecture"
+keywords:
+  - digital twin
+  - multi-agent system
+  - damaged infrastructure
+  - Bayesian fusion
+  - value of information
+  - test oracles
+references:
+  - type: conference-paper
+    title: "Agentic AI-Driven Architecture for Dynamic Verification of Infrastructure Digital Twins"
+    authors:
+      - family-names: Dolhopolov
+        given-names: Serhii
+      - family-names: Honcharenko
+        given-names: Tetyana
+      - family-names: Dudnyk
+        given-names: Yuriy
+      - family-names: Hots
+        given-names: Vladyslav
+      - family-names: Fesan
+        given-names: Anatolii
+      - family-names: Batyr
+        given-names: Nursaya
+    collection-title: "2026 IEEE 6th International Conference on Smart Information Systems and Technologies (SIST)"
+    year: 2026
+    doi: "10.1109/SIST61674.2026.11596258"

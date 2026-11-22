@@ -1,0 +1,6 @@
+# Optional: recompute the perception features (python reproduce.py --perception); a CUDA GPU is recommended.
+# Install the PyTorch build that matches your CUDA version from https://pytorch.org (we used 2.6.0+cu124).
+-r requirements.txt
+torch==2.6.0
+transformers==5.3.0
+pillow==12.3.0

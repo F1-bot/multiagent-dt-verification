@@ -1,0 +1,111 @@
+{
+ "population": {
+  "total": 17294,
+  "records": 5534,
+  "imputed_undamaged": 11760,
+  "eval_total": 8649,
+  "eval_records": 2768,
+  "eval_imputed": 5881
+ },
+ "test_majority_class_acc": 0.6275992438563327,
+ "inspection_targeting_mean_5runs": {
+  "B0-periodic": {
+   "share_changed": 0.2739456050453291,
+   "unique_share": 1.0
+  },
+  "B1-VoI": {
+   "share_changed": 0.018234122630881294,
+   "unique_share": 0.903665746945211
+  },
+  "B3-linearPool": {
+   "share_changed": 0.5873901732254717,
+   "unique_share": 0.7255813953488373
+  },
+  "P-full": {
+   "share_changed": 0.5958584858036879,
+   "unique_share": 0.6841939298383919
+  }
+ },
+ "object_575_seed1000": {
+  "P-full": {
+   "inspection_days": [
+    28,
+    34
+   ],
+   "detection_day": 28,
+   "post_weights": [
+    0.521,
+    0.075,
+    0.398,
+    0.884,
+    0.912,
+    0.782,
+    0.926
+   ]
+  },
+  "P-gamma0": {
+   "inspection_days": [
+    29,
+    34
+   ],
+   "detection_day": 29,
+   "post_weights": [
+    0.521,
+    0.075,
+    0.398,
+    0.884,
+    0.912,
+    0.782,
+    0.926
+   ]
+  },
+  "P-noQuarantine": {
+   "inspection_days": [
+    29,
+    34
+   ],
+   "detection_day": 29,
+   "post_weights": [
+    0.521,
+    0.075,
+    0.398,
+    0.884,
+    0.912,
+    0.782,
+    0.926
+   ]
+  },
+  "B3-linearPool": {
+   "inspection_days": [
+    21,
+    58
+   ],
+   "detection_day": 58,
+   "post_weights": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  "B2-naiveBayes": {
+   "inspection_days": [
+    29,
+    34
+   ],
+   "detection_day": 29,
+   "post_weights": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ]
+  }
+ }
+}
